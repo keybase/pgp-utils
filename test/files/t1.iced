@@ -1,6 +1,5 @@
 
-armor = require '../../lib/armor'
-util = require '../../lib/util'
+{armor,util} = require '../../lib/main'
 
 exports.encode_decode = (T,cb) ->
   type = "STUFF"
