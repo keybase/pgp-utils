@@ -28,7 +28,7 @@ exports.uint_to_buffer = (nbits, i) ->
 exports.ASP = class ASP
 
   constructor : ({progress_hook, delay, canceler}) ->
-    @_delay         = delay         or 2 # 2msec delay by default
+    @_delay         = if delay? then delay else 2 # 2msec delay by default
     @_canceler      = canceler      or (new Canceler())
     @_progress_hook = progress_hook or ((obj) -> )
     @_section       = null
