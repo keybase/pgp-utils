@@ -12,7 +12,8 @@ lib/%.js: src/%.iced
 $(BUILD_STAMP): \
 	lib/util.js \
 	lib/armor.js \
-	lib/main.js
+	lib/main.js \
+	lib/userid.js
 	date > $@
 
 build: $(BUILD_STAMP) 
