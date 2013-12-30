@@ -3,7 +3,7 @@
   "description":  "Simple PGP utils",
   "keywords":     ["crypto", "pgp", "keybase" ],
   "author":       "Maxwell Krohn",
-  "version":      "0.0.3",
+  "version":      "0.0.4",
   "licenses":     [{
     "type":       "MIT",
     "url":        ""

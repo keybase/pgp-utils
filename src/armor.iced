@@ -153,6 +153,7 @@ exports.Message = class Message
   constructor : ({@body, @type, @comment, @version, @pre, @post}) ->
     @lines = []
     @fields = {}
+    @payload = null
   raw : -> @lines.join '\n'
 
 #=========================================================================
@@ -201,6 +202,7 @@ exports.Parser = class Parser
       @lines.shift()
 
   read_body : () ->
+    @ret.payload = @payload.join("\n")
     dat = @payload.join ''
     @ret.body = new Buffer dat, 'base64'
 
