@@ -230,3 +230,10 @@ exports.asyncify = asyncify = (args, cb) -> cb args...
    
 #=========================================================
 
+exports.format_fingeprint = (raw) ->
+  hex = raw.toString('hex').toUpperCase()
+  parts = (hex[i...(i+4)] for i in [0...hex.length] by 4)
+  parts.join ' '
+
+#=========================================================
+
