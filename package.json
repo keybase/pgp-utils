@@ -3,7 +3,7 @@
   "description":  "Simple PGP utils",
   "keywords":     ["crypto", "pgp", "keybase" ],
   "author":       "Maxwell Krohn",
-  "version":      "0.0.6",
+  "version":      "0.0.7",
   "licenses":     [{
     "type":       "MIT",
     "url":        ""
@@ -22,12 +22,12 @@
     "lib" : "lib/"
   },
   "dependencies" : {
-    "iced-error" : "*"
+    "iced-error" : "~0.0.6"
   },
   "devDependencies" : {
     "iced-test" : ">=0.0.7",
-    "iced-coffee-script" : "*",
+    "iced-coffee-script" : "~1.6.3-j",
     "optimist" : "*",
-    "colors" : "*"
+    "colors" : "~0.6.2"
   }
 }

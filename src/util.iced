@@ -237,3 +237,13 @@ exports.format_fingerprint = (raw) ->
 
 #=========================================================
 
+exports.strip = strip = (x) -> x.split(/\s+/).join('')
+
+#=========================================================
+
+exports.fpeq = (fp1, fp2) ->
+  (strip(fp1).toLowerCase() is strip(fp2).toLowerCase())
+
+#=========================================================
+
+
