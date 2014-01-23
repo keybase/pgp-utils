@@ -16,5 +16,14 @@ exports.parse = (input) ->
       email : m[4]
   return components
 
- #=================================================================================
+#=================================================================================
+
+exports.format = (d) ->
+  parts = [ ]
+  if d.username?.length then parts.push d.username
+  if d.comment?.length then parts.push "(" + d.comment + ")"
+  if d.email?.length then parts.push "<" + d.email + ">"
+  parts.join(' ')
+
+#=================================================================================
 
