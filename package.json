@@ -22,11 +22,11 @@
     "lib" : "lib/"
   },
   "dependencies" : {
-    "iced-error" : "~0.0.6"
+    "iced-error" : "~0.0.8"
   },
   "devDependencies" : {
     "iced-test" : ">=0.0.7",
-    "iced-coffee-script" : "~1.6.3-j",
+    "iced-coffee-script" : "~1.7.1-a",
     "optimist" : "*",
     "colors" : "~0.6.2"
   }

@@ -46,6 +46,20 @@ exports.Encoder = class Encoder
 
 #=========================================================================
 
+#
+# Make a clearsign header for the first part of the clearsign message.
+#
+# @param {Object} C the constants object
+# @param {String} data the message data, should end with a newline
+# @param {String} hasher_name the name of the hash function used for the signature (e.g. 'SHA512')
+# @return {String} the framed message
+exports.clearsign_header = clearsign = (C, data, hasher_name) ->
+  enc = new Encoder C
+  f = enc.frame("SIGNED MESSAGE").begin
+  f.concat(make_line("Hash: #{hasher_name}"), make_line(), data)
+
+#=========================================================================
+
 exports.encode = encode = (C, type, data) -> (new Encoder C).encode(type, data)
 
 #=========================================================================
