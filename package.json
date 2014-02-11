@@ -1,33 +1,36 @@
 {
-  "name":         "pgp-utils",
-  "description":  "Simple PGP utils",
-  "keywords":     ["crypto", "pgp", "keybase" ],
-  "author":       "Maxwell Krohn",
-  "version":      "0.0.8",
-  "licenses":     [{
-    "type":       "MIT",
-    "url":        ""
-  }],
-  "main" :        "./lib/main.js",
-  "directories"  : {
-    "lib" : "lib"
+  "name": "pgp-utils",
+  "description": "Simple PGP utils",
+  "keywords": [
+    "crypto",
+    "pgp",
+    "keybase"
+  ],
+  "author": "Maxwell Krohn",
+  "version": "0.0.9",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": ""
+    }
+  ],
+  "main": "./lib/main.js",
+  "directories": {
+    "lib": "lib/"
   },
-  "homepage":     "http://github.com/keybase/pgp-utils",
-  "bugs":         "https://github.com/keybase/pgp-utils/issues",
-  "repository":   {
+  "homepage": "http://github.com/keybase/pgp-utils",
+  "bugs": "https://github.com/keybase/pgp-utils/issues",
+  "repository": {
     "type": "git",
     "url": "git://github.com/keybase/pgp-utils.git"
   },
-  "directories" : {
-    "lib" : "lib/"
+  "dependencies": {
+    "iced-error": "~0.0.8"
   },
-  "dependencies" : {
-    "iced-error" : "~0.0.8"
-  },
-  "devDependencies" : {
-    "iced-test" : ">=0.0.7",
-    "iced-coffee-script" : "~1.7.1-a",
-    "optimist" : "*",
-    "colors" : "~0.6.2"
+  "devDependencies": {
+    "iced-test": ">=0.0.7",
+    "iced-coffee-script": "~1.7.1-a",
+    "optimist": "*",
+    "colors": "~0.6.2"
   }
 }
