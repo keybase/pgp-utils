@@ -170,6 +170,11 @@ exports.Message = class Message
     @payload = null
   raw : -> @lines.join '\n'
 
+  make_clearsign : () ->
+    @clearsign = 
+      headers : {}
+      lines : []
+
 #=========================================================================
 
 exports.Parser = class Parser
@@ -195,8 +200,12 @@ exports.Parser = class Parser
     @check_checksum()
     @ret
 
+  #-----
+
   # Subclasses can make this smarter.
   parse_type : () -> @ret.type = @ret.fields.type = @type
+
+  #-----
 
   mparse : () ->
     out = []
@@ -210,20 +219,28 @@ exports.Parser = class Parser
         go = false
     out
 
+  #-----
+
   skip : () ->
     while @lines.length
       if @lines[0].match /\S+/ then break
       @lines.shift()
+
+  #-----
 
   read_body : () ->
     @ret.payload = @payload.join("\n")
     dat = @payload.join ''
     @ret.body = new Buffer dat, 'base64'
 
+  #-----
+
   check_checksum : () ->
     @ret.fields.checksum = @checksum
     if @checksum? and not verifyCheckSum @ret.body, @checksum
       throw new Error "checksum mismatch"
+
+  #-----
 
   pop_headers : () ->
     while @payload.length
@@ -232,8 +249,16 @@ exports.Parser = class Parser
       else if (m = l.match /Comment: (.*)/)? then @ret.comment = m[1]
       else if (not l? or l.length is 0) then break
 
+  #-----
+
   find_checksum : () ->
     @checksum = @payload.pop()[1...] if (l = @payload[-1...][0])? and l[0] is '='
+
+  #-----
+
+  v_unframe : (pre) -> true
+
+  #-----
 
   unframe : () ->
     rxx_b = /^(.*)(-{5}BEGIN PGP (.*?)-{5}.*$)/
@@ -246,17 +271,38 @@ exports.Parser = class Parser
     go = true
     pre = []
     post = []
+
+    found_pre_std = (l, is_last) -> pre.push l
+    found_pre_clearsign = (l, is_last) => 
+      @ret.clearsign.lines.push l if l.length or not is_last
+
+    found_pre = found_pre_std
+
     while @lines.length and go
       line = @lines.shift()
       switch stage
-        when 0
-          if (m = line.match rxx_b)
-            pre.push m[1]
-            @type = m[3]
+        when -1
+          if (m = line.match /^([^:]+): (.*)$/)
+            @ret.clearsign.headers[m[1].toLowerCase()] = m[2]
+          else if line.length is 0
             stage++
-            @ret.lines.push m[2]
+            found_pre = found_pre_clearsign
           else
-            pre.push line
+            throw new Error "Bad line in clearsign header"
+          @ret.lines.push line
+        when 0
+          if (m = line.match rxx_b)?
+            found_pre m[1], true
+            @ret.lines.push (if @ret.clearsign then line else m[2]) 
+            if m[3] is "SIGNED MESSAGE"
+              stage--
+              @ret.make_clearsign()
+            else
+              @type = m[3]
+              stage++
+          else
+            @ret.lines.push line if @ret.clearsign
+            found_pre line, false
         when 1
           if (m = line.match rxx_e)
             @ret.lines.push m[1]
