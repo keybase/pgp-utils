@@ -175,7 +175,10 @@ exports.json_stringify_sorted = (o, opts) ->
           sp   = space_it(depth)
           spp  = space_it(depth+1)
           keys = (k for k of os)
-          keys.sort sort_fn
+          if sort_fn
+            keys.sort sort_fn
+          else
+            keys.sort()
           s = "{" + ( spp + JSON.stringify(k) + ":" + json_safe(os[k],depth+1) for k in keys).join(',') + sp + "}"
       else
         s = JSON.stringify os
