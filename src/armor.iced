@@ -164,16 +164,27 @@ verifyCheckSum = (data, checksum) -> (getCheckSum(data) is checksum)
 #=========================================================================
 
 exports.Message = class Message 
+
   constructor : ({@body, @type, @comment, @version, @pre, @post}) ->
     @lines = []
     @fields = {}
     @payload = null
-  raw : -> @lines.join '\n'
+
+  unsplit : (lines) -> lines.join "\n"
+
+  raw : -> @unsplit(@lines)
+
+  finish_unframe : ({pre,post}) ->
+    @pre = @unsplit(pre)
+    @post = @unsplit(post)
+    if @clearsign?
+      @clearsign.body = @unsplit(@clearsign.lines)
 
   make_clearsign : () ->
     @clearsign = 
       headers : {}
       lines : []
+      body : null
 
 #=========================================================================
 
@@ -183,12 +194,13 @@ exports.Parser = class Parser
     @init data
 
   init : (data) -> 
-    @data = if Buffer.isBuffer data then data else data.toString('utf8')
+    @data = if Buffer.isBuffer data then data.toString('utf8') else data
     @lines = @data.split /\n/
     @checksum = null
     @body = null
     @type = null
     @ret = null
+    @last_type = null
 
   parse : () ->
     @ret = new Message {}
@@ -213,8 +225,9 @@ exports.Parser = class Parser
     while go
       @skip()
       if @lines.length
-        out.push @parse()
-        @init out.post
+        obj = @parse()
+        out.push obj
+        @init obj.post
       else
         go = false
     out
@@ -273,8 +286,7 @@ exports.Parser = class Parser
     post = []
 
     found_pre_std = (l, is_last) -> pre.push l
-    found_pre_clearsign = (l, is_last) => 
-      @ret.clearsign.lines.push l if l.length or not is_last
+    found_pre_clearsign = (l, is_last) => @ret.clearsign.lines.push l
 
     found_pre = found_pre_std
 
@@ -294,11 +306,12 @@ exports.Parser = class Parser
           if (m = line.match rxx_b)?
             found_pre m[1], true
             @ret.lines.push (if @ret.clearsign then line else m[2]) 
+            @type = m[3] unless @type?
+            @last_type = m[3]
             if m[3] is "SIGNED MESSAGE"
               stage--
               @ret.make_clearsign()
             else
-              @type = m[3]
               stage++
           else
             @ret.lines.push line if @ret.clearsign
@@ -306,8 +319,8 @@ exports.Parser = class Parser
         when 1
           if (m = line.match rxx_e)
             @ret.lines.push m[1]
-            if m[2] isnt @type
-              throw new Error "type mismatch -- begin #{type} w/ end #{m[1]}"
+            if m[2] isnt @last_type
+              throw new Error "type mismatch -- begin #{@last_type} w/ end #{m[1]}"
             stage++
             post = [ m[3] ].concat @lines
             @lines = []
@@ -317,10 +330,9 @@ exports.Parser = class Parser
             payload.push line
     if stage is 0 then throw new Error "no header found"
     else if stage is 1 then throw new Error "no tailer found"
-    else 
+    else
       @payload = payload
-      @ret.pre = pre.join("\n")
-      @ret.post = post.join("\n")
+      @ret.finish_unframe { pre, post }
 
 #=========================================================================
 
