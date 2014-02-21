@@ -195,7 +195,7 @@ exports.Parser = class Parser
 
   init : (data) -> 
     @data = if Buffer.isBuffer data then data.toString('utf8') else data
-    @lines = @data.split /\n/
+    @lines = @data.split /\r?\n/
     @checksum = null
     @body = null
     @type = null
