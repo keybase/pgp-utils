@@ -22,8 +22,16 @@ exports.test_no_comment = (T,cb) ->
 #--------
 
 exports.test_no_email = (T,cb) ->
-  T.assert (parse("Name Here (with comment)"))?, "parse worked"
-  T.assert (parse("Name Here ()"))?, "parse worked, empty comment"
+  p = parse("Name Here (with comment)")
+  T.assert p, "worked without an email"
+  T.equal p.username, "Name Here", "name was right"
+  T.equal p.comment, "with comment", "comment was right"
+  T.assert not(p.email?), "username was null"
+  p = parse("Name Here ()")
+  T.assert p, "worked with an empty comment"
+  T.equal p.comment, "", "got an empty"
+  T.equal p.username, "Name Here", "name here"
+  T.assert not(p.email?), "username was null"
   cb()
 
 #--------
