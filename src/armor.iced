@@ -1,5 +1,5 @@
 
-{katch,bufeq_fast,uint_to_buffer} = require './util'
+{strip,katch,bufeq_fast,uint_to_buffer} = require './util'
 
 #=========================================================================
 
@@ -265,7 +265,8 @@ exports.Parser = class Parser
   #-----
 
   find_checksum : () ->
-    @checksum = @payload.pop()[1...] if (l = @payload[-1...][0])? and l[0] is '='
+    if (l = @payload[-1...][0])? and l[0] is '='
+      @checksum = strip @payload.pop()[1...] 
 
   #-----
 
@@ -327,7 +328,9 @@ exports.Parser = class Parser
             go = false
           else
             @ret.lines.push line
-            payload.push line
+            # Ignore empty lines in the payload, there can be some
+            if line.match /\S/ 
+              payload.push line
     if stage is 0 then throw new Error "no header found"
     else if stage is 1 then throw new Error "no tailer found"
     else
