@@ -245,6 +245,10 @@ exports.fingerprint_to_key_id_64 = (fp) -> fp[-16...]
 #=========================================================
 
 exports.strip = strip = (x) -> x.split(/\s+/).join('')
+exports.trim = trim = (x) ->
+  if (m = x?.match /^\s+(.*?)$/) then x = m[1]
+  if (m = x?.match /^(.*?)\s+$/) then x = m[1]
+  x
 
 #=========================================================
 

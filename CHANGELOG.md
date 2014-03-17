@@ -1,3 +1,10 @@
+## 0.0.18 (2014-03-17)
+
+Bugfixes:
+
+  - Workaround a bug in browserify; seems like spaces in the middle of base64-decoding
+    yields the wrong answer on a decode.  Works fine in node.
+
 ## 0.0.17 (2014-03-17)
 
 Bugfixes:
