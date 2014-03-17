@@ -1,13 +1,12 @@
-## 0.0.16 (2014-03-17)
+## 0.0.17 (2014-03-17)
 
 Bugfixes:
 
   - Close #3: handle newlines and spaces at the end of a message block
 
-## 0.0.15 (2014-03-12)
+## 0.0.16 
 
-Features:
-
+  - Better bufeq_secure, which does not use floating point math
   - Make the decoder more robust for messages that have spurious whitespace
     See keybase/keybase-issues#219
 
