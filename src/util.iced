@@ -80,7 +80,7 @@ exports.bufeq_secure = bufeq_secure = (x,y) ->
   else
     check = 0
     for i in [0...x.length]
-      check += (x.readUInt8(i) ^ y.readUInt8(i))
+      check |= (x.readUInt8(i) ^ y.readUInt8(i))
     (check is 0)
   return ret
 

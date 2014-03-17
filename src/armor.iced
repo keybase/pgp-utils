@@ -260,7 +260,7 @@ exports.Parser = class Parser
       l = @payload.shift()
       if (m = l.match /Version: (.*)/) then @ret.version = m[1]
       else if (m = l.match /Comment: (.*)/)? then @ret.comment = m[1]
-      else if (not l? or l.length is 0) then break
+      else if (not l? or (l.length is 0) or (l.match /^\s+$/)) then break
 
   #-----
 
