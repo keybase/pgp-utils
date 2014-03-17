@@ -36,6 +36,12 @@ exports.encode_decode = (T,cb) ->
   decode(v3)
   T.waypoint "Decode test with space junk in the separator"
 
+  # Introduce a newline and a space after the checksum
+  i = v.indexOf("\n-----END PGP")
+  v4 = v[0...i] + " \n" + v[i...]
+  decode(v4)
+  T.waypoint "Decode test with junk after checksum"
+
   cb()
 
 #---------------------

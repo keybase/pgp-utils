@@ -207,6 +207,7 @@ exports.Parser = class Parser
     @unframe()
     @pop_headers()
     @parse_type()
+    @strip_empties_in_footer()
     @find_checksum()
     @read_body()
     @check_checksum()
@@ -216,6 +217,10 @@ exports.Parser = class Parser
 
   # Subclasses can make this smarter.
   parse_type : () -> @ret.type = @ret.fields.type = @type
+
+  #-----
+
+  last_line : () -> @payload[-1...][0]
 
   #-----
 
@@ -264,8 +269,13 @@ exports.Parser = class Parser
 
   #-----
 
+  strip_empties_in_footer : () ->
+    @payload.pop() while @last_line()?.match(/^\s*$/)
+
+  #-----
+
   find_checksum : () ->
-    if (l = @payload[-1...][0])? and l[0] is '='
+    if (l = @last_line())? and l[0] is '='
       @checksum = strip @payload.pop()[1...] 
 
   #-----
@@ -328,9 +338,7 @@ exports.Parser = class Parser
             go = false
           else
             @ret.lines.push line
-            # Ignore empty lines in the payload, there can be some
-            if line.match /\S/ 
-              payload.push line
+            payload.push line
     if stage is 0 then throw new Error "no header found"
     else if stage is 1 then throw new Error "no tailer found"
     else
