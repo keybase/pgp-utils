@@ -1,3 +1,9 @@
+## 0.0.19 (2014-03-29)
+
+Bugfixes:
+
+  - Allow userIDs with no space between the name and userid.
+
 ## 0.0.18 (2014-03-17)
 
 Bugfixes:
