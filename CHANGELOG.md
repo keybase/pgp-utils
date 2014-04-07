@@ -1,3 +1,9 @@
+## 0.0.20 (2014-04-07)
+
+Bugfixes:
+
+  - Slight improvements to PGP clearsign header decoding
+
 ## 0.0.19 (2014-03-29)
 
 Bugfixes:
