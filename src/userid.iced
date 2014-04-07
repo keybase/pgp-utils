@@ -5,8 +5,8 @@ exports.parse = (input) ->
   components = null
   x = ///
     ^([^(<]*?)        # The beginning name of the user (no comment or key)
-    (?:\s+\((.*?)\))? # The optional comment
-    (?:\s+<(.*?)>)?$  # The optional email address
+    (?:\s*\((.*?)\))? # The optional comment
+    (?:\s*<(.*?)>)?$  # The optional email address
     ///
   if (m = input.match x)?
     components = 

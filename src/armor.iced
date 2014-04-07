@@ -1,5 +1,5 @@
 
-{katch,bufeq_fast,uint_to_buffer} = require './util'
+{trim,strip,katch,bufeq_fast,uint_to_buffer} = require './util'
 
 #=========================================================================
 
@@ -207,6 +207,8 @@ exports.Parser = class Parser
     @unframe()
     @pop_headers()
     @parse_type()
+    @strip_empties_in_footer()
+    @trim_lines()
     @find_checksum()
     @read_body()
     @check_checksum()
@@ -216,6 +218,10 @@ exports.Parser = class Parser
 
   # Subclasses can make this smarter.
   parse_type : () -> @ret.type = @ret.fields.type = @type
+
+  #-----
+
+  last_line : () -> @payload[-1...][0]
 
   #-----
 
@@ -264,8 +270,18 @@ exports.Parser = class Parser
 
   #-----
 
+  strip_empties_in_footer : () ->
+    @payload.pop() while @last_line()?.match(/^\s*$/)
+
+  #-----
+
+  trim_lines : () ->
+    @payload = (trim(p) for p in @payload)
+
+  #-----
+
   find_checksum : () ->
-    @checksum = @payload.pop()[1...] if (l = @payload[-1...][0])? and l[0] is '='
+    @checksum = @payload.pop()[1...] if (l = @last_line())? and l[0] is '='
 
   #-----
 

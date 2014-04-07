@@ -36,14 +36,42 @@ exports.test_no_email = (T,cb) ->
 
 #--------
 
+exports.test_james_o_gorman = (T,cb) ->
+  p = parse("James O'Gorman<james@jamesog.net>")
+  T.assert p, "worked for James O'Gorman"
+  T.assert not(p.comment?), "no comment"
+  T.equal p.username, "James O'Gorman", "the right username"
+  T.equal p.email, "james@jamesog.net", "the right email"
+  cb()
+
+#--------
+
+exports.test_just_an_email = (T,cb) ->
+  p = parse("<just an email>")
+  T.assert p, "parse worked"
+  T.assert not(p.comment?), "no comment"
+  T.assert not(p.name?), "no name"
+  T.equal p.email, "just an email"
+  cb()
+
+#--------
+
+exports.test_just_a_comment = (T,cb) ->
+  p = parse("(just a comment)")
+  T.assert p, "parse worked"
+  T.assert not(p.email?), "no email"
+  T.assert not(p.name?), "no name"
+  T.equal p.comment, "just a comment"
+  cb()
+
+#--------
+
 exports.test_failed_parse_1 = (T,cb) ->
   bad_uids = [
     "shit <shit> <shit> (stuff)"
     "Stuff Stuff <bad> (worse)"
     "<bad> (worse) Never going to Work"
     "Never Going to <work@gmail.com> (not worth it)"
-    "<just an email>"
-    "(just a comment)"
   ]
   for b,i in bad_uids
     T.assert not((parse(b))?), "bad UID #{i} failed"
