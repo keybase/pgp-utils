@@ -25,11 +25,12 @@
     "url": "git://github.com/keybase/pgp-utils.git"
   },
   "dependencies": {
-    "iced-error": "~0.0.8"
+    "iced-error": "~0.0.8",
+    "iced-runtime": "0.0.1"
   },
   "devDependencies": {
     "iced-test": ">=0.0.7",
-    "iced-coffee-script": "~1.7.1-a",
+    "iced-coffee-script": "~1.7.1-c",
     "optimist": "*",
     "colors": "~0.6.2"
   }
