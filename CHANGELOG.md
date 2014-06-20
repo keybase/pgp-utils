@@ -1,3 +1,9 @@
+## 0.0.22 (2014-06-19)
+
+Bugfixes:
+
+  - strcmp_secure can handle nulls
+
 ## 0.0.21 (2014-06-05)
 
 Features:

@@ -87,7 +87,8 @@ exports.bufeq_secure = bufeq_secure = (x,y) ->
 #-----
 
 exports.streq_secure = (x,y) ->
-  bufeq_secure (bufferify x), (bufferify y)
+  B = (x) -> if x? then bufferify(x) else null
+  bufeq_secure (B x), (B y)
 
 #=========================================================
 
