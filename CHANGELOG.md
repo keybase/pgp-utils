@@ -1,3 +1,9 @@
+## 0.0.25 (2014-07-08)
+
+Features:
+
+  - xxd debug output, like the Unix filter
+
 ## 0.0.24 (2014-07-08)
 
 Bugfixes:
