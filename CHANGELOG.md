@@ -1,3 +1,11 @@
+## 0.0.23 (2014-07-08)
+
+Bugfixes:
+
+  - Be more strict in matching BEGIN and END PGP blocks.  Must be
+    at the beginning of the line
+     - See keybase/keybase-issues#844
+
 ## 0.0.22 (2014-06-04)
 
 Bugfixes:

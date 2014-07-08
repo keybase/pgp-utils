@@ -290,8 +290,8 @@ exports.Parser = class Parser
   #-----
 
   unframe : () ->
-    rxx_b = /^(.*)(-{5}BEGIN PGP (.*?)-{5}.*$)/
-    rxx_e = /^(.*-{5}END PGP (.*?)-{5})(.*)$/m
+    rxx_b = /^(-{5}BEGIN PGP (.*?)-{5}.*$)/
+    rxx_e = /^(-{5}END PGP (.*?)-{5})(.*)$/m
     rxx = rxx_b
     payload = []
     stage = 0
@@ -320,11 +320,11 @@ exports.Parser = class Parser
           @ret.lines.push line
         when 0
           if (m = line.match rxx_b)?
-            found_pre m[1], true
-            @ret.lines.push (if @ret.clearsign then line else m[2]) 
-            @type = m[3] unless @type?
-            @last_type = m[3]
-            if m[3] is "SIGNED MESSAGE"
+            found_pre '', true
+            @ret.lines.push (if @ret.clearsign then line else m[1]) 
+            @type = m[2] unless @type?
+            @last_type = m[2]
+            if m[2] is "SIGNED MESSAGE"
               stage--
               @ret.make_clearsign()
             else
