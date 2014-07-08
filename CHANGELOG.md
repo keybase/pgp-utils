@@ -1,10 +1,16 @@
-## 0.0.23 (2014-07-08)
+## 0.0.24 (2014-07-08)
 
 Bugfixes:
 
   - Be more strict in matching BEGIN and END PGP blocks.  Must be
     at the beginning of the line
      - See keybase/keybase-issues#844
+
+## 0.0.23 (2014-06-19)
+
+Bugfixes:
+
+  - strcmp_secure can handle nulls
 
 ## 0.0.22 (2014-06-04)
 
