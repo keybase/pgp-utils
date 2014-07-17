@@ -4,13 +4,13 @@
 Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
 Comment: GPGTools - http://gpgtools.org
 
-iQEcBAABAgAGBQJTvDwAAAoJEJgKPw0B/gTf6GwH/RjmuH+P3L1PhR8mOb5Bsatf
-snCXOn9FCF9AnIwNiqDwrw9fhSvCTB7F4fg/bsr71caVqJeo7LReSLcBnAA78GF8
-pKhYUrak5AYDq6ajYNlqJakujyojukLzyAcIzE41INg0bw5gO8mEnK0dxDXnmwie
-jaII2DDRk+owjRHGjBSANj0zhBpcTXXuArqvhx7bl85m5R3P0g4qv0cKZfLqi2IS
-lbI32ZOYMHu/vH8mrIQ894P9zGwNdBMSuZHo3vsUr+5c1nIt/d2a5jhrOMS7+ugV
-R7IRifTadRDgzlCs4GB5ksFpW69PvuQEmCk+4gDbzQSL0UwwiqgdvB/SmHaVhso=
-=P0fl
+iQEcBAABAgAGBQJTyFM6AAoJEJgKPw0B/gTfYmAIAJditbUzBNK74ptY6iVlFBWw
+rLLm44pFbSwWwCXNpWt649ZMS9ZjX6c7QabNKRYZz2iGJVAWWs0tGhEim4GcmMus
+ZLefBoW4zedAd/ASA42z20oNIGOG73PlXv3YlwqCTqF557KQaQuov8VlZcnPkkW0
+Te8d+ckzHXynXMse4hMr1EUAnbyRumrT4I6tQK+smxlDKsHWLxANFYpDquuoDZJj
+JoL6bJRAqmzTbkl1farDBenvPUVdViqbn83duRWYXjuHZr1knuLN7MRkwKSw+z5k
+5yQKHq5MsZOfhwewfVSL6yECDKDaMq411ISWiCk3Ly8NXx5cvB6u20MGwG6K/QQ=
+=9Nmw
 -----END PGP SIGNATURE-----
 
 ```
@@ -25,18 +25,18 @@ R7IRifTadRDgzlCs4GB5ksFpW69PvuQEmCk+4gDbzQSL0UwwiqgdvB/SmHaVhso=
 size   exec  file               contents                                                        
              ./                                                                                 
 109            .gitignore       ec278daeb8f83cac2579d262b92ee6d7d872c4d1544e881ba515d8bcc05361ab
-1315           CHANGELOG.md     05eb165ad53b6aaaaa787579c1223c733f50db806a29193bf30cb9b686981c2e
+1414           CHANGELOG.md     5b62c33810b504bef2d630d279ea416d82362fe031d30d856e79e7b5af88f5bd
 1483           LICENSE          333be7050513d91d9e77ca9acb4a91261721f0050209636076ed58676bfc643d
 437            Makefile         a031266cdf17cdf3236a0f641bf9eb2a882bf49b5e5aaac8686e4d02e5f0c4b5
 106            README.md        0d5a7f840664005562cff3e2cee8d0d2e7468e24c4380169b6516ce318602f50
                lib/                                                                             
-15268            armor.js       9cf1da4bff7b7c3ae74b40a003fd10a8e40a94f36997ee2ec11848b43b0fa9f1
+15383            armor.js       03cc19d1beb37c402d34616a8c3b641583ad4d95e311090c046a247a21f7cc13
 187              main.js        c94977c724c76d803edbf6a08ddbc300a6aa930bf777fbd423eecca05f19fc54
 814              userid.js      2d0fff34cdbfbe9ccc7c80cca2a5dac70328e813178a41777efa4b3b1bf63650
 12760            util.js        b6dd08e6eb21c7bc844cf861ad4b2719a9a9c2a48f8b11a64b560ea83c8d6b16
-740            package.json     6a63dfbd1decb531a38fc50dea15e47af791766a57de6d18734895cdd5cbc509
+740            package.json     c2e0410272682fc8553b43e60553d3462c8c4ed3feefc7b8aba9fa06a9d27cdc
                src/                                                                             
-12577            armor.iced     d722a34c7d991caa43a7de9a954e979fed4dc15b34d07bfe4d8d5ab8719d7774
+12714            armor.iced     6361969d5240e4ff03a07f1ad7a0b04bd855b560ca4b079716caf6476c57857b
 103              main.iced      4f6935672c854424a9d7dc96d3e446d39528b76091b4d06e199c67c5511cd09e
 843              userid.iced    d73e0350adfdd2a397fe6971109122db2d2017e05aa4911b64fd729144c322ae
 7630             util.iced      b2267ec8b70da4d3309d2eaef2b2d45a8b0b291739b9150a3331fd019b52011d
