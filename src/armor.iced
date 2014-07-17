@@ -111,9 +111,9 @@ crc_table = [
 
 #-----
 
-createcrc24 = (input) ->
-  crc = 0xB704CE
-  index = 0;
+compute_crc24 = (input, initval = 0xB704CE) ->
+  crc = initval
+  index = 0
 
   while ((input.length - index) > 16)
    crc = (crc << 8) ^ crc_table[((crc >> 16) ^ input.readUInt8(index +  0)) & 0xff]
@@ -146,7 +146,7 @@ createcrc24 = (input) ->
 # @return {Buffer} Base64 encoded checksum
 #
 getCheckSum = (data) ->
-  c = createcrc24 data
+  c = compute_crc24 data
   buf = uint_to_buffer 32, c
   buf[1...4].toString 'base64'
 
@@ -361,6 +361,10 @@ exports.Parser = class Parser
 #
 exports.decode = decode = (data) -> katch () -> (new Parser data).parse()
 exports.mdecode = decode = (data) -> katch () -> (new Parser data).mparse()
+
+#=========================================================================
+
+exports.compute_crc24 = compute_crc24
 
 #=========================================================================
 
