@@ -1,3 +1,15 @@
+## 0.0.26 (2014-07-17)
+
+Features:
+
+  - export armor.compute_crc24 for streaming armoring in kbpgp
+
+## 0.0.25 (2014-07-08)
+
+Features:
+
+  - xxd debug output, like the Unix filter
+
 ## 0.0.24 (2014-07-08)
 
 Bugfixes:
