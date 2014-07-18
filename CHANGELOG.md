@@ -1,3 +1,9 @@
+## 0.0.27 (2014-07-19)
+
+Features:
+
+  - Expose crc24_to_base64 one-liner
+
 ## 0.0.26 (2014-07-17)
 
 Features:
