@@ -146,9 +146,10 @@ createcrc24 = (input) ->
 # @return {Buffer} Base64 encoded checksum
 #
 getCheckSum = (data) ->
-  c = createcrc24 data
-  buf = uint_to_buffer 32, c
-  buf[1...4].toString 'base64'
+  crc24_to_base64 createcrc24 data
+
+exports.crc24_to_base64 = crc24_to_base64 = (c) ->
+  uint_to_buffer(32, c)[1...4].toString 'base64'
 
 formatCheckSum = (data) ->
   make_line("=" + getCheckSum(data))
