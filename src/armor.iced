@@ -148,8 +148,8 @@ compute_crc24 = (input, initval = 0xB704CE) ->
 getCheckSum = (data) ->
   crc24_to_base64 compute_crc24 data
 
-exports.crc24_to_base64 = crc24_to_base64 = (c) ->
-  uint_to_buffer(32, c)[1...4].toString 'base64'
+exports.crc24_to_base64 = crc24_to_base64 = (c, pad = true) ->
+  (if pad then "=" else '') + uint_to_buffer(32, c)[1...4].toString('base64')
 
 formatCheckSum = (data) ->
   make_line("=" + getCheckSum(data))

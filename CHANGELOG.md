@@ -1,3 +1,9 @@
+## 0.0.28 (2014-07-20)
+
+Features:
+
+  - As below, but add a "pad" flag
+
 ## 0.0.27 (2014-07-19)
 
 Features:
