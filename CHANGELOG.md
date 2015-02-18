@@ -1,8 +1,9 @@
-## 0.0.28
+## 0.0.28 (2015-02-18)
 
 Features:
 
   - As below, but add a "pad" flag
+  - Improved fingerprint formatter
 
 ## 0.0.27 (2014-07-19)
 
