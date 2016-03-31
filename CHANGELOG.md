@@ -1,3 +1,8 @@
+## 0.0.29 (2016-03-30)
+
+Bugfix:
+  - error out on malformed headers
+
 ## 0.0.28 (2015-02-18)
 
 Features:

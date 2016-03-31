@@ -54,19 +54,19 @@ msg = """
 Hash: SHA512
 
 When, in disgrace with fortune and men's eyes,
-I all alone beweep my outcast state, 
+I all alone beweep my outcast state,
 And trouble deaf heaven with my bootless cries,
-And look upon myself, and curse my fate, 
-Wishing me like to one more rich in hope, 
+And look upon myself, and curse my fate,
+Wishing me like to one more rich in hope,
 Featur'd like him, like him with friends possess'd,
-Desiring this man's art and that man's scope, 
-With what I most enjoy contented least; 
+Desiring this man's art and that man's scope,
+With what I most enjoy contented least;
 Yet in these thoughts myself almost despising,
-Haply I think on thee, and then my state, 
-Like to the lark at break of day arising 
+Haply I think on thee, and then my state,
+Like to the lark at break of day arising
 - From sullen earth, sings hymns at heaven's gate;
 For thy sweet love remember'd such wealth brings
-That then I scorn to change my state with kings. 
+That then I scorn to change my state with kings.
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
 Comment: GPGTools - https://gpgtools.org
@@ -84,7 +84,7 @@ QBwrLwWdAWahf7kg5gOFlxLFgWLDcyTSj1/lmYtazWGHSVI0B/u699N3PhIGlaaT
 Al9DZ/j7kPPbK2tEHdx9Kq4m4sniFlLt/kAMOtfNiu7zwnVEx2L9IPgjyXtshT6H
 AtaeSVJvRwvf1PFes2er
 =h/Au
------END PGP SIGNATURE-----  
+-----END PGP SIGNATURE-----
 """
 
 #===========================================================================
@@ -99,4 +99,21 @@ exports.test_parse_clearsign_2 = (T,cb) ->
   cb()
 
 #===========================================================================
-  
+
+exports.test_bad_armor = (T,cb) ->
+  msg = """-----BEGIN PGP MESSAGE-----
+Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
+Comment: GPGTools - https://gpgtools.org
+hQEMA+bZw3a+syp5AQf6A1kTq0lwT+L1WCr7N2twHbvOnAorb+PJiVHIp2hTW2gr
+U3fm/0/SxTdTJRaZsAjbVLH4jYg6cXyNIxdE5uw2ywxQ9Zi8iWylDixsPT5bD6Q7
+xlFLhr4BTt7P/oTUMANybuFU6ntss8jbzKZ7SdHbylLrkaUylSWqH1d7bffMxCAl
+JOOAHBOXowpcswAurwQpaDZGX3rGUXjAcMDS5ykr/tgHIwo25A+WbIdNCYMkYm0d
+BT83PUMIZm351LJWIv/tBqraNc9kEyftAMbVlh5xC0EfPt+ipyRJDh5XKTvh0xQW
+T6nM9Z0qLVwUhaG9RqRM1H6D083IE9fKF6sFdce7MtI/ARo3wPa7qll1hyY5vfaT
+baAzKLJPcPDf1vu2+S1c1kt5ljvao8MCCebgK7E8CPT/ajLr1xU05G7Eg0zrkstk
+=ni0M
+-----END PGP MESSAGE-----"""
+  [err,_] = decode(msg)
+  T.assert err?, "we got an error back"
+  T.equal err.toString(), "Error: bad PGP armor found; expected a newline"
+  cb()
