@@ -269,7 +269,7 @@ exports.Parser = class Parser
       if (m = l.match /^Version: (.*)/) then @ret.version = m[1]
       else if (m = l.match /^Comment: (.*)/)? then @ret.comment = m[1]
       else if (not l? or (l.length is 0) or (l.match /^\s+$/)) then break
-      else if l.match /^\S+:\S+/ then # ignored pseudo-header
+      else if l.match /^\S+: .+$/ then # ignored pseudo-header
       else throw new Error "bad PGP armor found; expected a newline"
 
   #-----
