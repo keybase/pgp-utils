@@ -1,3 +1,9 @@
+## 0.0.30 (2016-03-30)
+
+Bugfix:
+  - Better regex for the below
+  - new test case
+
 ## 0.0.29 (2016-03-30)
 
 Bugfix:
