@@ -1,3 +1,8 @@
+## 0.0.31 (2016-12-19)
+
+Bugfix:
+  - Only allow low printable characters in incoming armor.
+
 ## 0.0.30 (2016-03-30)
 
 Bugfix:

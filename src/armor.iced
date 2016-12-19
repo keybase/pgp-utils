@@ -206,6 +206,7 @@ exports.Parser = class Parser
 
   parse : () ->
     @ret = new Message {}
+    @check_charset()
     @unframe()
     @pop_headers()
     @parse_type()
@@ -353,6 +354,19 @@ exports.Parser = class Parser
     else
       @payload = payload
       @ret.finish_unframe { pre, post }
+
+  #-----
+
+  check_charset : () ->
+    # Only allow low printable characters.
+    # This aligns with the spirit if not the letter of armoring in rfc4880
+    # "the whole point of armoring is to provide seven-bit-clean data"
+    charset = "\n\r\t !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+    okchar = {}
+    okchar[x] = true for x in charset
+    for c in @data
+      unless okchar[c]?
+        throw new Error "invalid character in armor"
 
 #=========================================================================
 
