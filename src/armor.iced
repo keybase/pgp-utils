@@ -361,12 +361,8 @@ exports.Parser = class Parser
     # Only allow low printable characters.
     # This aligns with the spirit if not the letter of armoring in rfc4880
     # "the whole point of armoring is to provide seven-bit-clean data"
-    charset = "\n\r\t !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
-    okchar = {}
-    okchar[x] = true for x in charset
-    for c in @data
-      unless okchar[c]?
-        throw new Error "invalid character in armor"
+    if not /^[\n\r\t\x20-\x7e]*$/.test @data
+      throw new Error "invalid character in armor"
 
 #=========================================================================
 
