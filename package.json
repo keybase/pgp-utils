@@ -33,5 +33,8 @@
     "iced-coffee-script": ">=1.7.1-e",
     "optimist": "*",
     "colors": "~0.6.2"
+  },
+  "scripts": {
+    "test": "make test"
   }
 }
