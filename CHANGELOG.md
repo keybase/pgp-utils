@@ -1,3 +1,8 @@
+## 0.0.32 (2017-01-19)
+
+Bugfix:
+  - Allow non-ASCII in cleartext messages.
+
 ## 0.0.31 (2016-12-19)
 
 Bugfix:
