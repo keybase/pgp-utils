@@ -206,8 +206,8 @@ exports.Parser = class Parser
 
   parse : () ->
     @ret = new Message {}
-    @check_charset()
     @unframe()
+    @check_charset()
     @pop_headers()
     @parse_type()
     @strip_empties_in_footer()
@@ -358,10 +358,10 @@ exports.Parser = class Parser
   #-----
 
   check_charset : () ->
-    # Only allow low printable characters.
+    # Only allow low printable characters, unless the message is clearsigned.
     # This aligns with the spirit if not the letter of armoring in rfc4880
     # "the whole point of armoring is to provide seven-bit-clean data"
-    if not /^[\n\r\t\x20-\x7e]*$/.test @data
+    if not @ret.clearsign? and not /^[\n\r\t\x20-\x7e]*$/.test @data
       throw new Error "invalid character in armor"
 
 #=========================================================================

@@ -182,3 +182,25 @@ CNU=
   T.assert err?, "we got an error back"
   T.equal err.toString(), "Error: invalid character in armor"
   cb()
+
+exports.test_high_char_clearsigned = (T,cb) ->
+  msg = """-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+clearsign works \u{1f4a9}
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEWKJF09iyXBX2zj//cYdraK1ILTIFAliA9I4ACgkQcYdraK1I
+LTI/Egf/RRhKMRTuYoGab7MWKdDzgpFCl/oBGbxb6FyZT2gbWH+ZHY6C7Q+XGl75
+2hIQhtqb6h/9not0i8NRBoZBhXaB3UNVjYXViznXUCFHraxVB3Jw/9RO+ngpOySJ
+zg5aI+NLpx64TDmr0OBJyoodcvwtGqyACLflhC/iHmy8bOCAYfhQ2PaGWEB5dPOh
+XAZ7l7hzXBc8NFfqUVFjEDS6Ze9qciDYpHrGdbk1uAzdpTyLbj1oQUZnHSjfmRIc
+f2/zCEeRz+f5ziqjlI6XtniWNR6PWDq/cMfKeVpLPTDN8p22dP/6/rw/kl9QHkqE
+kL/gpzhxmthXleUat8zNkK/xrgzjxA==
+=FQwn
+-----END PGP SIGNATURE-----
+"""
+  [err, decoded] = decode(msg)
+  T.no_error err
+  T.equal decoded.clearsign.body, "clearsign works \u{1f4a9}\n"
+  cb()
