@@ -295,7 +295,7 @@ exports.Parser = class Parser
   #-----
 
   unframe : () ->
-    rxx_b = /^(-{5}BEGIN PGP (.*?)-{5}.*$)/
+    rxx_b = /^(-{5}BEGIN PGP (.*?)-{5}\s*$)/
     rxx_e = /^(-{5}END PGP (.*?)-{5})(.*)$/m
     rxx = rxx_b
     payload = []

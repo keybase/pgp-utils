@@ -204,3 +204,32 @@ kL/gpzhxmthXleUat8zNkK/xrgzjxA==
   T.no_error err
   T.equal decoded.clearsign.body, "clearsign works \u{1f4a9}\n"
   cb()
+
+exports.test_header_white_space = (T,cb) ->
+  msg = """-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mI0EWcknrwEEAK2X5lKA76pf6i5D1aVcApUAH6NnZ4NkFeSxKT92soiSWkFn+I/G
+VKJfTvx2dzxOAB4rvyFjUzjgAwhK3FblCnfXwgPAh6/vukF/YBwynCVyNxOVAVHY
+gCkw/+7zIM24RUxzI3V9wzJ6i/SpfNnWKkKqJXIt4Xzv3Rs/UXk5DMY5ABEBAAG0
+I01heCBUZXN0IDc3NyA8dGhlbWF4Kzc3N0BnbWFpbC5jb20+iLgEEwECACIFAlnJ
+J68CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEM5jclcHa4v8ssQD/RJA
+JTrfydAkLzffGgZyKafs/aTraVDNtDv1sF+5iBtZvOB0FFjzivl3BGlplEqnPquB
+bg8/OQuxFLYM/f8+WgP5MDqBce8s6h5kGZPj73zP4GQLZWojS5/H3J1sDBmNTSnd
+ByELhvVxJmJiHdz2jMb74+thB/ZK4xf+zAkRF4WZuI0EWcknrwEEALk0Bsp/xJ+4
+75hswySLZmvNh79CyIC0K1gzXiEPDwqGy6xT1PbXLJ5HcXna4HJdNAgXf1T/n+zR
+19xJMAB6NSv2zigRaYAyy4It2p2cRPHseWWTcP7lMUpwqtQsnqNKJ14RuAaMOQtG
+xSaQMgMGZx6lxFWNaK40SxSnqFRtfRs9ABEBAAGInwQYAQIACQUCWcknrwIbDAAK
+CRDOY3JXB2uL/PX/A/9HvpLPVDrEMr9+vzmS8Ez0br2kgeoPh7yOAlEotS7OBNWU
+UzzykQlAfLl74336wrkSZfa2GnBBJQHvlnLosnmbGCzsd3KMkuJv90hxxt1rqjN6
+3GFiwBVdsSuyEb3uQJ/ytAyVozwwxjMQZ+gJTYfK8syPdf2T1W6cv7lfHp8E8g==
+=sJQD
+-----END PGP PUBLIC KEY BLOCK-----"""
+  k = msg.split('\n')
+  line0 = k[0]
+  k1 = [(line0 + "       " )].concat(k[1...]).join("\n")
+  [err, decoded] = decode(k1)
+  T.no_error err
+  k2 = [(line0 + "       [10/20]" )].concat(k[1...]).join("\n")
+  [err, decoded] = decode(k2)
+  T.assert err?, "error found!"
+  cb()
