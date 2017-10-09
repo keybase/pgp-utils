@@ -192,7 +192,7 @@ exports.Message = class Message
 
 exports.Parser = class Parser
 
-  constructor : (data) ->
+  constructor : (data, {@strict} = {}) ->
     @init data
 
   init : (data) ->
@@ -211,7 +211,7 @@ exports.Parser = class Parser
     @pop_headers()
     @parse_type()
     @strip_empties_in_footer()
-    @verify_base64_lines()
+    @verify_base64_lines() if @strict
     @trim_lines()
     @find_checksum()
     @read_body()
