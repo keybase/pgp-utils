@@ -205,7 +205,8 @@ kL/gpzhxmthXleUat8zNkK/xrgzjxA==
   T.equal decoded.clearsign.body, "clearsign works \u{1f4a9}\n"
   cb()
 
-global_msg = """-----BEGIN PGP PUBLIC KEY BLOCK-----
+exports.test_header_white_space = (T,cb) ->
+  msg = """-----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mI0EWcknrwEEAK2X5lKA76pf6i5D1aVcApUAH6NnZ4NkFeSxKT92soiSWkFn+I/G
 VKJfTvx2dzxOAB4rvyFjUzjgAwhK3FblCnfXwgPAh6/vukF/YBwynCVyNxOVAVHY
@@ -223,8 +224,6 @@ UzzykQlAfLl74336wrkSZfa2GnBBJQHvlnLosnmbGCzsd3KMkuJv90hxxt1rqjN6
 3GFiwBVdsSuyEb3uQJ/ytAyVozwwxjMQZ+gJTYfK8syPdf2T1W6cv7lfHp8E8g==
 =sJQD
 -----END PGP PUBLIC KEY BLOCK-----"""
-exports.test_header_white_space = (T,cb) ->
-  msg = global_msg
   k = msg.split('\n')
   line0 = k[0]
   k1 = [(line0 + "       " )].concat(k[1...]).join("\n")
@@ -234,46 +233,3 @@ exports.test_header_white_space = (T,cb) ->
   [err, decoded] = decode(k2)
   T.assert err?, "error found!"
   cb()
-
-exports.test_bundle_no_newlines = (T, cb) ->
-  msg = global_msg
-  # Remove newlines from the base64 part
-  k = msg.split '\n'
-  mangled_key = k[0..1].join('\n') + '\n' + k[2..-2].join('') + '\n' + k[-1..].join('\n')
-  [err, decoded] = decode mangled_key
-  T.assert err?, 'mangled key should not decode'
-
-  # Another case is where newlines are replaced with spaces, only
-  # keeping last newline before crc line.
-  k = msg.split '\n'
-  mangled_key = k[0..1].join('\n') + '\n' + k[2..-3].join(' ') + '\n' + k[-2..].join('\n')
-  [err, decoded] = decode mangled_key
-  T.assert err?, 'mangled key 2 should not decode'
-
-  cb null
-
-exports.clearsign_long_lines = (T, cb) ->
-  # A really long line in clearsign section should not trip the
-  # line limit in parser.
-  message = """-----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
-
-Regardless of where you run it, a heavy math operation can be written with single-thread concurrency in mind. You just have to (1) do work in batches, (2) defer to the event loop periodically via setTimeout or process.nextTick, and (3) call back with an answer, instead of returning one.
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEoFFhUQ7mlmAboOx7P9U7SHFSjO8FAlnXtT8ACgkQP9U7SHFS
-jO+NJAf+M7+hbUDVJ/T+iNyNzh3s0o4sK1Glk21bWlYN+cBOPLoTg8zeNDtz28zE
-HZ69ln6WsirXfR1FuytLVjAsrW9fjGSgYOaVXGNNToi/UMZWqw60r4BV8MTrou9U
-KWWAdjXAI7/2xwsX7MlEN4q4uzmetQ5kAeRzbBtKfPL115NsTh1fSPm0rN7OpZNE
-F2YURWpHVJkcqL/49RWDFGHdmoghO5NNVpxKfGd0X1JXIRbjTIU5DDZ9dBe54/5X
-PfAkUucuvxMEB6vXD58/M1vXp0bKCrEz7sJy0T1AHAvnOhJr5ET9xqzSckNnVn8I
-PTfgSSzEioqv3qaunjwm0ZjRtPabMg==
-=9ssu
------END PGP SIGNATURE-----
-
-"""
-
-  [err, decoded] = decode message
-  T.assert not err?, "clearsign armor should decode"
-
-  cb null
