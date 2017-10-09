@@ -282,7 +282,7 @@ exports.Parser = class Parser
   #-----
 
   verify_base64_lines : () ->
-    rxx_b64 = /^[a-zA-Z0-9\/\+=]+$/
+    rxx_b64 = /^[a-zA-Z0-9\/+=]+$/
     max_line_length = 80
 
     for line in @payload

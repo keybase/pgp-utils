@@ -72,3 +72,30 @@ PTfgSSzEioqv3qaunjwm0ZjRtPabMg==
   T.assert not err?, "clearsign armor should decode under normal mode"
 
   cb null
+
+exports.non_base64_characters = (T, cb) ->
+  message = """-----BEGIN PGP MESSAGE-----
+Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
+Comment: GPGTools - https://gpgtools.org
+
+hQEMA+bZw3a+syp5AQf6A1kTq0lwT+L1WCr7N2twHbvOnAorb+PJiVHIp2hTW2gr
+U3fm/0/SxTdTJRaZsAjbVLH4jYg6cXyNIxdE5uw2ywxQ9Zi8iWylD(((ixsPT5bD6Q7
+xlFLhr4BTt7P/oTUMANybuFU6ntss8jbzKZ7SdHbylLrkaUylSWqH1d7bffMxCAl
+JOOAHBOXowpcswAurwQpaDZGX3rGUXjAcMDS5ykr/tgHIwo25A+WbIdNCYMkYm0d
+BT83PUMIZm351LJWIv/tBqraNc9kEyftAMbVlh5xC0EfPt+ipyRJDh5XKTvh0xQW
+T6nM9Z0qLVwUhaG9RqRM1H6D083IE9fKF6sFdce7MtI/ARo3wPa7qll1hyY5vfaT
+baAzKLJPcPDf1vu2+S1c1kt5ljvao8MCCebgK7E8CPT/ajLr1xU05G7Eg0zrkstk
+=ni0M
+-----END PGP MESSAGE-----"""
+
+  [err, decoded] = decode_strict message
+  T.assert err?, "should decode under strict mode"
+  T.waypoint "decode_strict failed with error \"#{err.message}\""
+
+  # Note - the checksum still matches, because only additional
+  # characters were added, which are ignored during base64 reading. So
+  # it should still decode properly.
+  [err, decoded] = decode message
+  T.assert not err?, "should decode under normal mode"
+
+  cb null
