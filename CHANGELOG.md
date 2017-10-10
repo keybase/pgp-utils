@@ -4,6 +4,11 @@ Feature:
   - Add strict mode to Parser that will refuse armors with non-base64
     characters or lines longer than 80 characters.
 
+## 0.0.33 (2017-09-25)
+
+- Only allow whitespace after the end of the --BEGIN PGP-- block, not
+  any characters.
+
 ## 0.0.32 (2017-01-19)
 
 Bugfix:
