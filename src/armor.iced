@@ -192,7 +192,7 @@ exports.Message = class Message
 
 exports.Parser = class Parser
 
-  constructor : (data) ->
+  constructor : (data, {@strict} = {}) ->
     @init data
 
   init : (data) ->
@@ -211,6 +211,7 @@ exports.Parser = class Parser
     @pop_headers()
     @parse_type()
     @strip_empties_in_footer()
+    @verify_base64_lines() if @strict
     @trim_lines()
     @find_checksum()
     @read_body()
@@ -277,6 +278,18 @@ exports.Parser = class Parser
 
   strip_empties_in_footer : () ->
     @payload.pop() while @last_line()?.match(/^\s*$/)
+
+  #-----
+
+  verify_base64_lines : () ->
+    rxx_b64 = /^[a-zA-Z0-9\/+=]+$/
+    max_line_length = 80
+
+    for line in @payload
+      unless line.match rxx_b64
+        throw new Error "line \"#{line}\" has characters that are not part of base64"
+      if line.length > max_line_length
+        throw new Error "armor line longer than #{max_line_length} characters"
 
   #-----
 
