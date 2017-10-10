@@ -1,3 +1,9 @@
+## 0.0.34 (2017-10-10)
+
+Feature:
+  - Add strict mode to Parser that will refuse armors with non-base64
+    characters or lines longer than 80 characters.
+
 ## 0.0.32 (2017-01-19)
 
 Bugfix:
