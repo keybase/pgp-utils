@@ -254,7 +254,7 @@ exports.Parser = class Parser
   read_body : () ->
     @ret.payload = @payload.join("\n")
     dat = @payload.join ''
-    @ret.body = new Buffer dat, 'base64'
+    @ret.body = Buffer.from dat, 'base64'
 
   #-----
 

@@ -7,13 +7,13 @@ exports.uint_to_buffer = (nbits, i) ->
   ret = null
   switch nbits
     when 16
-      ret = new Buffer 2
+      ret = Buffer.alloc 2
       ret.writeUInt16BE i, 0
     when 32
-      ret = new Buffer 4
+      ret = Buffer.alloc 4
       ret.writeUInt32BE i, 0
     when 8
-      ret = new Buffer 1
+      ret = Buffer.alloc  1
       ret.writeUInt8 i, 0
     else
       throw new Error "Bit types not found: #{nbit}"
@@ -94,7 +94,7 @@ exports.streq_secure = (x,y) ->
 
 exports.bufferify = bufferify = (s) ->
   if Buffer.isBuffer(s) then s
-  else if typeof s is 'string' then new Buffer s, 'utf8'
+  else if typeof s is 'string' then Buffer.from s, 'utf8'
   else throw new Error "Cannot convert to buffer: #{s}"
 
 #=========================================================
@@ -213,7 +213,7 @@ exports.base64u =
     b = (b + Array(5 - b.length % 4).join('='))
       .replace(/\-/g, '+') # Convert '-' to '+'
       .replace(/\_/g, '/') # Convert '_' to '/'
-    new Buffer(b, 'base64');
+    Buffer.from(b, 'base64');
 
   verify : (b) -> /^[A-Za-z0-9\-_]+$/.test b
 
