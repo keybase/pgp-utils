@@ -1,3 +1,7 @@
+## 0.0.35 (2019-02-01)
+
+- Upgrade (new Buffer) to Buffer.from and Buffer.alloc
+
 ## 0.0.34 (2017-10-10)
 
 Feature:
